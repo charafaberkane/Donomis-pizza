@@ -19,7 +19,7 @@ interface CartItem extends Pizza {
   quantity: number;
 }
 
-// Pizza Data in French
+
 const PIZZAS: Pizza[] = [
   {
     id: "diavola",
@@ -495,7 +495,7 @@ export default function Home() {
             </a>
           </div>
           <p className="text-[11px] font-semibold text-stone-400 text-center md:text-right">
-            © 2024 Donomi Pizza. Le savoir-faire artisanal italien livré chez vous.
+            © 2026 Donomi Pizza. Le savoir-faire artisanal italien livré chez vous.
           </p>
         </div>
       </footer>
