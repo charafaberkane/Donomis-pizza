@@ -4,21 +4,21 @@
   --font-sans: var(--font-plus-jakarta), sans-serif;
   --font-serif: var(--font-playfair), serif;
   
-  --color-burgundy: #8C1D1D;
-  --color-burgundy-hover: #701616;
-  --color-cream-bg: #FAF7E3;
-  --color-cream-light: #FDFBF3;
-  --color-earthy-text: #4A3E3D;
-  --color-accent-gold: #C2410C;
+  --color-bordeaux: #8C1D1D;
+  --color-bordeaux-survol: #701616;
+  --color-creme-fond: #FAF7E3;
+  --color-creme-clair: #FDFBF3;
+  --color-texte-terreux: #4A3E3D;
+  --color-accent-or: #C2410C;
 }
 
 :root {
-  --background: #FAF7E3;
-  --foreground: #1C1917;
+  --arriere-plan: #FAF7E3;
+  --premier-plan: #1C1917;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--arriere-plan);
+  color: var(--premier-plan);
   font-family: var(--font-sans);
 }

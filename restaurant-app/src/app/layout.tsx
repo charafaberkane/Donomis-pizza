@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "Découvrez notre menu signature. Le savoir-faire artisanal italien livré chez vous.",
 };
 
-export default function RootLayout({
+export default function MiseEnPagePrincipale({
   children,
 }: Readonly<{
   children: React.ReactNode;

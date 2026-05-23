@@ -1,195 +1,188 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 // Types
 interface Pizza {
   id: string;
-  name: string;
-  rating: number;
+  nom: string;
+  note: number;
   badge: "Épicée" | "Classique" | "Végétarienne" | "Spéciale";
-  badgeType: "spicy" | "classic" | "vegetarian" | "special";
+  typeBadge: "epicee" | "classique" | "vegetarienne" | "speciale";
   description: string;
-  price: number;
+  prix: number;
   image: string;
 }
 
-interface CartItem extends Pizza {
-  quantity: number;
+interface ArticlePanier extends Pizza {
+  quantite: number;
 }
-
 
 const PIZZAS: Pizza[] = [
   {
     id: "diavola",
-    name: "La Diavola",
-    rating: 4.9,
+    nom: "La Diavola",
+    note: 4.9,
     badge: "Épicée",
-    badgeType: "spicy",
+    typeBadge: "epicee",
     description: "Salami épicé, olives noires, flocons de piment, tomates San Marzano et mozzarella de bufflonne.",
-    price: 24.00,
+    prix: 24.00,
     image: "/images/la_diavola.png"
   },
   {
     id: "margherita",
-    name: "Margherita",
-    rating: 4.8,
+    nom: "Margherita",
+    note: 4.8,
     badge: "Classique",
-    badgeType: "classic",
+    typeBadge: "classique",
     description: "Mozzarella de bufflonne fraîche, basilic frais, huile d'olive extra vierge et sel de mer.",
-    price: 19.00,
+    prix: 19.00,
     image: "/images/margherita.png"
   },
   {
     id: "ortolana",
-    name: "Ortolana",
-    rating: 4.7,
+    nom: "Ortolana",
+    note: 4.7,
     badge: "Végétarienne",
-    badgeType: "vegetarian",
+    typeBadge: "vegetarienne",
     description: "Courgettes grillées, aubergines, poivrons marinés, fromage de chèvre crémeux et réduction balsamique.",
-    price: 22.00,
+    prix: 22.00,
     image: "/images/ortolana.png"
   },
   {
     id: "tartufo",
-    name: "Tartufo Nero",
-    rating: 5.0,
+    nom: "Tartufo Nero",
+    note: 5.0,
     badge: "Spéciale",
-    badgeType: "special",
+    typeBadge: "speciale",
     description: "Copeaux de truffe noire fraîche, champignons porcini sautés, fromage fontina fondu et thym frais.",
-    price: 32.00,
+    prix: 32.00,
     image: "/images/tartufo_nero.png"
   },
   {
     id: "calabrese",
-    name: "Calabrese",
-    rating: 4.9,
+    nom: "Calabrese",
+    note: 4.9,
     badge: "Épicée",
-    badgeType: "spicy",
+    typeBadge: "epicee",
     description: "Nduja de Calabre piquante, oignons rouges caramélisés, filet de miel piquant et burrata fraîche.",
-    price: 26.00,
+    prix: 26.00,
     image: "/images/calabrese.png"
   },
   {
     id: "capricciosa",
-    name: "Capricciosa",
-    rating: 4.6,
+    nom: "Capricciosa",
+    note: 4.6,
     badge: "Classique",
-    badgeType: "classic",
+    typeBadge: "classique",
     description: "Cœurs d'artichauts, jambon blanc cuit aux herbes, champignons de Paris frais et olives taggiasche.",
-    price: 23.00,
+    prix: 23.00,
     image: "/images/capricciosa.png"
   },
   {
     id: "quattro",
-    name: "Quattro Formaggi",
-    rating: 4.9,
+    nom: "Quattro Formaggi",
+    note: 4.9,
     badge: "Végétarienne",
-    badgeType: "vegetarian",
+    typeBadge: "vegetarienne",
     description: "Mélange onctueux et fondant de Gorgonzola AOP, Parmigiano Reggiano, Fontina et fior di latte.",
-    price: 21.00,
-    image: "/images/margherita.png" // Fallback to Margherita
+    prix: 21.00,
+    image: "/images/margherita.png" // Remplacement par Margherita
   },
   {
     id: "salmone",
-    name: "Salmone Affumicato",
-    rating: 4.8,
+    nom: "Salmone Affumicato",
+    note: 4.8,
     badge: "Spéciale",
-    badgeType: "special",
+    typeBadge: "speciale",
     description: "Saumon fumé de qualité supérieure, crème fraîche à l'aneth, câpres de Sicile et perles d'oignon rouge.",
-    price: 29.00,
-    image: "/images/la_diavola.png" // Fallback to Diavola
+    prix: 29.00,
+    image: "/images/la_diavola.png" // Remplacement par Diavola
   }
 ];
 
-export default function Home() {
-  const [activeCategory, setActiveCategory] = useState<string>("Tout");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+export default function Accueil() {
+  const [categorieActive, setCategorieActive] = useState<string>("Tout");
+  const [recherche, setRecherche] = useState<string>("");
+  const [panier, setPanier] = useState<ArticlePanier[]>([]);
+  const [estPanierOuvert, setEstPanierOuvert] = useState<boolean>(false);
+  const [messageAlerte, setMessageAlerte] = useState<string | null>(null);
 
-  // Filtered pizzas based on category & search query
-  const filteredPizzas = useMemo(() => {
-    return PIZZAS.filter((pizza) => {
-      const matchesCategory =
-        activeCategory === "Tout" ||
-        (activeCategory === "Classiques" && pizza.badgeType === "classic") ||
-        (activeCategory === "Épicées" && pizza.badgeType === "spicy") ||
-        (activeCategory === "Végétariennes" && pizza.badgeType === "vegetarian") ||
-        (activeCategory === "Spéciales" && pizza.badgeType === "special");
+  // Pizzas filtrées par catégorie et recherche
+  const pizzasFiltrees = PIZZAS.filter((pizza) => {
+    const correspondCategorie =
+      categorieActive === "Tout" ||
+      (categorieActive === "Classiques" && pizza.typeBadge === "classique") ||
+      (categorieActive === "Épicées" && pizza.typeBadge === "epicee") ||
+      (categorieActive === "Végétariennes" && pizza.typeBadge === "vegetarienne") ||
+      (categorieActive === "Spéciales" && pizza.typeBadge === "speciale");
 
-      const matchesSearch =
-        pizza.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pizza.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const correspondRecherche =
+      pizza.nom.toLowerCase().includes(recherche.toLowerCase()) ||
+      pizza.description.toLowerCase().includes(recherche.toLowerCase());
 
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchQuery]);
+    return correspondCategorie && correspondRecherche;
+  });
 
-  // Cart operations
-  const addToCart = (pizza: Pizza) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === pizza.id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === pizza.id ? { ...item, quantity: item.quantity + 1 } : item
+  // Opérations du panier
+  const ajouterAuPanier = (pizza: Pizza) => {
+    setPanier((panierPrecedent) => {
+      const articleExistant = panierPrecedent.find((article) => article.id === pizza.id);
+      if (articleExistant) {
+        return panierPrecedent.map((article) =>
+          article.id === pizza.id ? { ...article, quantite: article.quantite + 1 } : article
         );
       }
-      return [...prevCart, { ...pizza, quantity: 1 }];
+      return [...panierPrecedent, { ...pizza, quantite: 1 }];
     });
 
-    // Trigger toast alert
-    setToastMessage(`🍕 ${pizza.name} ajoutée au panier !`);
+    // Déclencher l'alerte
+    setMessageAlerte(`🍕 ${pizza.nom} ajoutée au panier !`);
     setTimeout(() => {
-      setToastMessage(null);
+      setMessageAlerte(null);
     }, 3000);
   };
 
-  const updateQuantity = (id: string, amount: number) => {
-    setCart((prevCart) => {
-      return prevCart
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.quantity + amount;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
+  const modifierQuantite = (id: string, montant: number) => {
+    setPanier((panierPrecedent) => {
+      return panierPrecedent
+        .map((article) => {
+          if (article.id === id) {
+            const nouvelleQte = article.quantite + montant;
+            return nouvelleQte > 0 ? { ...article, quantite: nouvelleQte } : null;
           }
-          return item;
+          return article;
         })
-        .filter((item): item is CartItem => item !== null);
+        .filter((article): article is ArticlePanier => article !== null);
     });
   };
 
-  const removeFromCart = (id: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  const retirerDuPanier = (id: string) => {
+    setPanier((panierPrecedent) => panierPrecedent.filter((article) => article.id !== id));
   };
 
-  const cartTotal = useMemo(() => {
-    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }, [cart]);
+  const totalPanier = panier.reduce((somme, article) => somme + article.prix * article.quantite, 0);
 
-  const totalItemsCount = useMemo(() => {
-    return cart.reduce((sum, item) => sum + item.quantity, 0);
-  }, [cart]);
+  const nombreTotalArticles = panier.reduce((somme, article) => somme + article.quantite, 0);
 
-  const handleCheckout = () => {
-    setCart([]);
-    setIsCartOpen(false);
-    setToastMessage("🎉 Commande passée avec succès ! Merci de votre confiance.");
+  const validerCommande = () => {
+    setPanier([]);
+    setEstPanierOuvert(false);
+    setMessageAlerte("🎉 Commande passée avec succès ! Merci de votre confiance.");
     setTimeout(() => {
-      setToastMessage(null);
+      setMessageAlerte(null);
     }, 4000);
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7E3] text-[#1C1917] font-sans selection:bg-burgundy selection:text-white flex flex-col justify-between">
-      {/* Toast Alert */}
-      {toastMessage && (
+    <div className="min-h-screen bg-[#FAF7E3] text-[#1C1917] font-sans selection:bg-bordeaux selection:text-white flex flex-col justify-between">
+      {/* Alerte Toast */}
+      {messageAlerte && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#8C1D1D] text-[#FAF7E3] px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border border-[#FAF7E3]/20 animate-bounce duration-300">
-          <span className="font-semibold text-sm">{toastMessage}</span>
+          <span className="font-semibold text-sm">{messageAlerte}</span>
           <button
-            onClick={() => setToastMessage(null)}
+            onClick={() => setMessageAlerte(null)}
             className="text-white/60 hover:text-white transition-colors"
           >
             ✕
@@ -197,12 +190,12 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Container */}
+      {/* Conteneur Principal */}
       <div className="w-full">
-        {/* Navigation Header */}
+        {/* En-tête de Navigation */}
         <header className="sticky top-0 z-40 bg-[#FAF7E3]/95 backdrop-blur-md border-b border-[#E9E4C9] py-4 px-6 md:px-12 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h1 className="font-serif italic text-2xl md:text-3xl font-extrabold text-burgundy tracking-tight cursor-pointer">
+            <h1 className="font-serif italic text-2xl md:text-3xl font-extrabold text-bordeaux tracking-tight cursor-pointer">
               Donomi Pizza
             </h1>
           </div>
@@ -210,39 +203,39 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-8">
             <a
               href="#"
-              className="text-stone-600 hover:text-burgundy transition-colors text-sm font-semibold tracking-wide"
+              className="text-stone-600 hover:text-bordeaux transition-colors text-sm font-semibold tracking-wide"
             >
               Accueil
             </a>
             <a
               href="#"
-              className="text-burgundy relative font-semibold text-sm tracking-wide after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-burgundy"
+              className="text-bordeaux relative font-semibold text-sm tracking-wide after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-bordeaux"
             >
               Menu
             </a>
             <a
               href="#"
-              className="text-stone-600 hover:text-burgundy transition-colors text-sm font-semibold tracking-wide"
+              className="text-stone-600 hover:text-bordeaux transition-colors text-sm font-semibold tracking-wide"
             >
               À propos
             </a>
             <a
               href="#"
-              className="text-stone-600 hover:text-burgundy transition-colors text-sm font-semibold tracking-wide"
+              className="text-stone-600 hover:text-bordeaux transition-colors text-sm font-semibold tracking-wide"
             >
               Contact
             </a>
           </nav>
 
           <div className="flex items-center gap-4">
-            {/* Top Search Bar */}
+            {/* Barre de Recherche Supérieure */}
             <div className="relative hidden sm:block">
               <input
                 type="text"
                 placeholder="Rechercher un plat..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-[#FAF7E3] border border-[#E9E4C9] rounded-full pl-10 pr-4 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-burgundy w-48 transition-all focus:w-60 text-stone-850"
+                value={recherche}
+                onChange={(e) => setRecherche(e.target.value)}
+                className="bg-[#FAF7E3] border border-[#E9E4C9] rounded-full pl-10 pr-4 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-bordeaux w-48 transition-all focus:w-60 text-stone-850"
               />
               <svg
                 className="absolute left-3.5 top-2.5 h-3.5 w-3.5 text-stone-400"
@@ -259,10 +252,10 @@ export default function Home() {
               </svg>
             </div>
 
-            {/* Shopping Cart Button */}
+            {/* Bouton Panier */}
             <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-stone-700 hover:text-burgundy transition-colors focus:outline-none"
+              onClick={() => setEstPanierOuvert(true)}
+              className="relative p-2 text-stone-700 hover:text-bordeaux transition-colors focus:outline-none"
               aria-label="Panier"
             >
               <svg
@@ -278,15 +271,15 @@ export default function Home() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              {totalItemsCount > 0 && (
-                <span className="absolute top-0.5 right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-burgundy rounded-full animate-pulse">
-                  {totalItemsCount}
+              {nombreTotalArticles > 0 && (
+                <span className="absolute top-0.5 right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-bordeaux rounded-full animate-pulse">
+                  {nombreTotalArticles}
                 </span>
               )}
             </button>
 
-            {/* Profile Avatar Button */}
-            <button className="p-1.5 rounded-full text-stone-700 hover:text-burgundy transition-colors focus:outline-none">
+            {/* Bouton Profil */}
+            <button className="p-1.5 rounded-full text-stone-700 hover:text-bordeaux transition-colors focus:outline-none">
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -304,10 +297,10 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Hero Section */}
+        {/* Section Héro */}
         <section className="py-12 md:py-16 px-6 md:px-12 max-w-7xl mx-auto">
           <div className="max-w-3xl">
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-black text-burgundy mb-6 leading-tight">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-black text-bordeaux mb-6 leading-tight">
               Notre Carte Signature
             </h2>
             <p className="text-[#4A3E3D] text-sm md:text-base lg:text-lg leading-relaxed font-medium">
@@ -317,20 +310,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Filter and Local Search Bar */}
+        {/* Filtre et Barre de Recherche Locale */}
         <section className="px-6 md:px-12 max-w-7xl mx-auto mb-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E9E4C9] pb-6">
-            {/* Category tabs */}
+            {/* Onglets de catégories */}
             <div className="flex flex-wrap gap-2.5">
               {["Tout", "Classiques", "Épicées", "Végétariennes", "Spéciales"].map((cat) => {
-                const isSelected = activeCategory === cat;
+                const estSelectionne = categorieActive === cat;
                 return (
                   <button
                     key={cat}
-                    onClick={() => setActiveCategory(cat)}
+                    onClick={() => setCategorieActive(cat)}
                     className={`px-5 py-2 text-xs md:text-sm font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer ${
-                      isSelected
-                        ? "bg-burgundy text-[#FAF7E3] shadow-md transform -translate-y-[1px]"
+                      estSelectionne
+                        ? "bg-bordeaux text-[#FAF7E3] shadow-md transform -translate-y-[1px]"
                         : "bg-[#FAF7E3] hover:bg-white text-stone-600 border border-[#E9E4C9]"
                     }`}
                   >
@@ -340,14 +333,14 @@ export default function Home() {
               })}
             </div>
 
-            {/* Menu Search Box */}
+            {/* Barre de Recherche du Menu */}
             <div className="relative w-full md:w-80">
               <input
                 type="text"
                 placeholder="Rechercher votre pizza..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-[#FAF7E3] hover:bg-white focus:bg-white border border-[#E9E4C9] rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-burgundy w-full pr-10 transition-colors text-stone-850"
+                value={recherche}
+                onChange={(e) => setRecherche(e.target.value)}
+                className="bg-[#FAF7E3] hover:bg-white focus:bg-white border border-[#E9E4C9] rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-bordeaux w-full pr-10 transition-colors text-stone-850"
               />
               <div className="absolute right-3.5 top-3 text-stone-400">
                 <svg
@@ -368,19 +361,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pizzas Grid */}
+        {/* Grille de Pizzas */}
         <section className="px-6 md:px-12 max-w-7xl mx-auto mb-20">
-          {filteredPizzas.length > 0 ? (
+          {pizzasFiltrees.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredPizzas.map((pizza) => {
-                // Determine badge color classes
-                let badgeClass = "bg-stone-800 text-white";
-                if (pizza.badgeType === "spicy") {
-                  badgeClass = "bg-[#8C1D1D] text-white";
-                } else if (pizza.badgeType === "classic") {
-                  badgeClass = "bg-[#5F6935] text-white";
-                } else if (pizza.badgeType === "vegetarian") {
-                  badgeClass = "bg-[#C2410C] text-white";
+              {pizzasFiltrees.map((pizza) => {
+                // Déterminer les classes de couleurs pour le badge
+                let classeBadge = "bg-stone-800 text-white";
+                if (pizza.typeBadge === "epicee") {
+                  classeBadge = "bg-[#8C1D1D] text-white";
+                } else if (pizza.typeBadge === "classique") {
+                  classeBadge = "bg-[#5F6935] text-white";
+                } else if (pizza.typeBadge === "vegetarienne") {
+                  classeBadge = "bg-[#C2410C] text-white";
                 }
 
                 return (
@@ -388,33 +381,33 @@ export default function Home() {
                     key={pizza.id}
                     className="bg-white rounded-2xl overflow-hidden border border-[#E9E4C9]/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full group transform hover:-translate-y-1"
                   >
-                    {/* Image Area */}
+                    {/* Zone Image */}
                     <div className="relative h-64 sm:h-52 w-full overflow-hidden bg-stone-100">
                       <Image
                         src={pizza.image}
-                        alt={pizza.name}
+                        alt={pizza.nom}
                         fill
                         priority
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 25vw"
                       />
                       <span
-                        className={`absolute top-4 right-4 text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-sm ${badgeClass}`}
+                        className={`absolute top-4 right-4 text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-sm ${classeBadge}`}
                       >
                         {pizza.badge}
                       </span>
                     </div>
 
-                    {/* Content Area */}
+                    {/* Zone Contenu */}
                     <div className="p-5 flex flex-col flex-1 justify-between">
                       <div>
                         <div className="flex items-start justify-between gap-2">
-                          <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-burgundy transition-colors">
-                            {pizza.name}
+                          <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-bordeaux transition-colors">
+                            {pizza.nom}
                           </h3>
                           <div className="flex items-center gap-1 text-sm font-bold text-stone-700 shrink-0">
                             <span className="text-amber-500">★</span>
-                            <span>{pizza.rating.toFixed(1)}</span>
+                            <span>{pizza.note.toFixed(1)}</span>
                           </div>
                         </div>
                         <p className="text-stone-500 text-xs md:text-sm mt-2.5 leading-relaxed font-medium line-clamp-3">
@@ -423,12 +416,12 @@ export default function Home() {
                       </div>
 
                       <div className="flex items-center justify-between mt-5 pt-3 border-t border-stone-100">
-                        <span className="text-burgundy font-extrabold text-lg">
-                          {pizza.price.toFixed(2).replace(".", ",")} $
+                        <span className="text-bordeaux font-extrabold text-lg">
+                          {pizza.prix.toFixed(2).replace(".", ",")} $
                         </span>
                         <button
-                          onClick={() => addToCart(pizza)}
-                          className="bg-burgundy hover:bg-burgundy-hover text-white px-3.5 py-1.5 rounded-lg text-xs font-bold tracking-wide flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                          onClick={() => ajouterAuPanier(pizza)}
+                          className="bg-bordeaux hover:bg-bordeaux-survol text-white px-3.5 py-1.5 rounded-lg text-xs font-bold tracking-wide flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
                         >
                           <svg
                             className="h-3.5 w-3.5"
@@ -462,10 +455,10 @@ export default function Home() {
               </p>
               <button
                 onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("Tout");
+                  setRecherche("");
+                  setCategorieActive("Tout");
                 }}
-                className="mt-5 bg-burgundy text-[#FAF7E3] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-burgundy-hover transition-colors"
+                className="mt-5 bg-bordeaux text-[#FAF7E3] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-bordeaux-survol transition-colors"
               >
                 Réinitialiser les filtres
               </button>
@@ -474,23 +467,23 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Footer */}
+      {/* Pied de Page */}
       <footer className="bg-white border-t border-[#E9E4C9] py-8 px-6 md:px-12 w-full mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <h3 className="font-serif italic text-xl font-black text-burgundy">
+          <h3 className="font-serif italic text-xl font-black text-bordeaux">
             Donomi Pizza
           </h3>
           <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-stone-500">
-            <a href="#" className="hover:text-burgundy transition-colors">
+            <a href="#" className="hover:text-bordeaux transition-colors">
               Politique de confidentialité
             </a>
-            <a href="#" className="hover:text-burgundy transition-colors">
+            <a href="#" className="hover:text-bordeaux transition-colors">
               Développement durable
             </a>
-            <a href="#" className="hover:text-burgundy transition-colors">
+            <a href="#" className="hover:text-bordeaux transition-colors">
               Nos restaurants
             </a>
-            <a href="#" className="hover:text-burgundy transition-colors">
+            <a href="#" className="hover:text-bordeaux transition-colors">
               Nous contacter
             </a>
           </div>
@@ -500,22 +493,22 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Shopping Cart Drawer */}
-      {isCartOpen && (
+      {/* Tiroir du Panier */}
+      {estPanierOuvert && (
         <div className="fixed inset-0 z-50 overflow-hidden">
-          {/* Backdrop */}
+          {/* Fond assombri */}
           <div
             className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setIsCartOpen(false)}
+            onClick={() => setEstPanierOuvert(false)}
           />
 
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
             <div className="w-screen max-w-md bg-[#FAF7E3] border-l border-[#E9E4C9] flex flex-col h-full shadow-2xl animate-slide-in">
-              {/* Cart Header */}
+              {/* En-tête du Panier */}
               <div className="px-6 py-5 border-b border-[#E9E4C9] flex items-center justify-between bg-white">
                 <div className="flex items-center gap-2">
                   <svg
-                    className="h-5 w-5 text-burgundy"
+                    className="h-5 w-5 text-bordeaux"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -528,29 +521,29 @@ export default function Home() {
                     />
                   </svg>
                   <h3 className="font-serif text-lg font-black text-stone-900">
-                    Votre Panier ({totalItemsCount})
+                    Votre Panier ({nombreTotalArticles})
                   </h3>
                 </div>
                 <button
-                  onClick={() => setIsCartOpen(false)}
-                  className="text-stone-400 hover:text-burgundy transition-colors p-1.5 focus:outline-none cursor-pointer"
+                  onClick={() => setEstPanierOuvert(false)}
+                  className="text-stone-400 hover:text-bordeaux transition-colors p-1.5 focus:outline-none cursor-pointer"
                 >
                   <span className="text-xl">✕</span>
                 </button>
               </div>
 
-              {/* Cart Items List */}
+              {/* Liste des Articles du Panier */}
               <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                {cart.length > 0 ? (
-                  cart.map((item) => (
+                {panier.length > 0 ? (
+                  panier.map((article) => (
                     <div
-                      key={item.id}
+                      key={article.id}
                       className="bg-white rounded-xl p-4 border border-[#E9E4C9]/40 flex gap-4 items-center justify-between"
                     >
                       <div className="relative h-16 w-16 rounded-lg overflow-hidden shrink-0 bg-stone-100">
                         <Image
-                          src={item.image}
-                          alt={item.name}
+                          src={article.image}
+                          alt={article.nom}
                           fill
                           className="object-cover"
                         />
@@ -558,24 +551,24 @@ export default function Home() {
 
                       <div className="flex-1">
                         <h4 className="font-serif text-sm font-bold text-stone-900 leading-tight">
-                          {item.name}
+                          {article.nom}
                         </h4>
-                        <span className="text-burgundy text-xs font-extrabold block mt-1">
-                          {item.price.toFixed(2).replace(".", ",")} $
+                        <span className="text-bordeaux text-xs font-extrabold block mt-1">
+                          {article.prix.toFixed(2).replace(".", ",")} $
                         </span>
 
                         <div className="flex items-center gap-2 mt-2">
                           <button
-                            onClick={() => updateQuantity(item.id, -1)}
+                            onClick={() => modifierQuantite(article.id, -1)}
                             className="bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded text-xs font-black transition-colors"
                           >
                             -
                           </button>
                           <span className="text-xs font-extrabold text-stone-700 w-4 text-center">
-                            {item.quantity}
+                            {article.quantite}
                           </span>
                           <button
-                            onClick={() => updateQuantity(item.id, 1)}
+                            onClick={() => modifierQuantite(article.id, 1)}
                             className="bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded text-xs font-black transition-colors"
                           >
                             +
@@ -584,8 +577,8 @@ export default function Home() {
                       </div>
 
                       <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-stone-400 hover:text-burgundy transition-colors p-1.5 cursor-pointer"
+                        onClick={() => retirerDuPanier(article.id)}
+                        className="text-stone-400 hover:text-bordeaux transition-colors p-1.5 cursor-pointer"
                         aria-label="Supprimer"
                       >
                         <svg
@@ -611,8 +604,8 @@ export default function Home() {
                       Votre panier est vide.
                     </p>
                     <button
-                      onClick={() => setIsCartOpen(false)}
-                      className="mt-6 bg-burgundy text-[#FAF7E3] px-5 py-2.5 rounded-full text-xs font-bold hover:bg-burgundy-hover transition-colors"
+                      onClick={() => setEstPanierOuvert(false)}
+                      className="mt-6 bg-bordeaux text-[#FAF7E3] px-5 py-2.5 rounded-full text-xs font-bold hover:bg-bordeaux-survol transition-colors"
                     >
                       Continuer mes achats
                     </button>
@@ -620,12 +613,12 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Cart Footer */}
-              {cart.length > 0 && (
+              {/* Pied du Panier */}
+              {panier.length > 0 && (
                 <div className="p-6 bg-white border-t border-[#E9E4C9] space-y-4">
                   <div className="flex justify-between items-center text-stone-700 text-sm font-semibold">
                     <span>Sous-total</span>
-                    <span>{cartTotal.toFixed(2).replace(".", ",")} $</span>
+                    <span>{totalPanier.toFixed(2).replace(".", ",")} $</span>
                   </div>
                   <div className="flex justify-between items-center text-stone-500 text-xs">
                     <span>Frais de livraison</span>
@@ -633,14 +626,14 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between items-center text-stone-900 font-extrabold text-base pt-2 border-t border-stone-100">
                     <span>Total</span>
-                    <span className="text-burgundy text-lg">
-                      {cartTotal.toFixed(2).replace(".", ",")} $
+                    <span className="text-bordeaux text-lg">
+                      {totalPanier.toFixed(2).replace(".", ",")} $
                     </span>
                   </div>
 
                   <button
-                    onClick={handleCheckout}
-                    className="w-full bg-burgundy hover:bg-burgundy-hover text-white py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shadow-md text-center mt-2"
+                    onClick={validerCommande}
+                    className="w-full bg-bordeaux hover:bg-bordeaux-survol text-white py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shadow-md text-center mt-2"
                   >
                     Passer la commande
                   </button>
