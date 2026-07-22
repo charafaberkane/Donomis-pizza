@@ -16,6 +16,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Donomi Pizza - Notre Carte Signature",
   description: "Découvrez notre menu signature. Le savoir-faire artisanal italien livré chez vous.",
+  manifest: "/manifest.json",
 };
 
 import { ClientShell } from "../components";
