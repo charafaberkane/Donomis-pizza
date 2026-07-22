@@ -1,4 +1,5 @@
-import { NomPage, ArticlePanier } from "../../types";
+import Link from "next/link";
+import { NomPage } from "../../types";
 
 interface HeaderProps {
   pageActive: NomPage;
@@ -9,7 +10,6 @@ interface HeaderProps {
 
 export default function Header({
   pageActive,
-  onChangerPage,
   onOuvrirPanier,
   nombreArticles,
 }: HeaderProps) {
@@ -17,42 +17,56 @@ export default function Header({
     <header className="sticky top-0 z-40 bg-[#FAF7E3]/95 backdrop-blur-md border-b border-[#E9E4C9] py-4 px-6 md:px-12 flex items-center justify-between">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <button
-          onClick={() => onChangerPage("accueil")}
-          className="font-serif italic text-2xl md:text-3xl font-extrabold text-[#8C1D1D] tracking-tight cursor-pointer bg-transparent border-none"
+        <Link
+          href="/"
+          className="font-serif italic text-2xl md:text-3xl font-extrabold text-[#8C1D1D] tracking-tight cursor-pointer bg-transparent border-none no-underline"
         >
           Donomi Pizza
-        </button>
+        </Link>
       </div>
 
       {/* Navigation */}
       <nav className="hidden md:flex items-center gap-8">
-        <button
-          onClick={() => onChangerPage("accueil")}
-          className={`bg-transparent border-none cursor-pointer text-sm font-semibold tracking-wide transition-colors ${
+        <Link
+          href="/"
+          className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "accueil"
               ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
               : "text-stone-600 hover:text-[#8C1D1D]"
           }`}
         >
           Accueil
-        </button>
-        <button
-          onClick={() => onChangerPage("menu")}
-          className={`bg-transparent border-none cursor-pointer text-sm font-semibold tracking-wide transition-colors ${
+        </Link>
+        <Link
+          href="/menu"
+          className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "menu" || pageActive === "details"
               ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
               : "text-stone-600 hover:text-[#8C1D1D]"
           }`}
         >
           Menu
-        </button>
-        <span className="text-stone-600 hover:text-[#8C1D1D] transition-colors text-sm font-semibold tracking-wide cursor-pointer">
+        </Link>
+        <Link
+          href="/a-propos"
+          className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
+            pageActive === "apropos"
+              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
+              : "text-stone-600 hover:text-[#8C1D1D]"
+          }`}
+        >
           À propos
-        </span>
-        <span className="text-stone-600 hover:text-[#8C1D1D] transition-colors text-sm font-semibold tracking-wide cursor-pointer">
+        </Link>
+        <Link
+          href="/contact"
+          className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
+            pageActive === "contact"
+              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
+              : "text-stone-600 hover:text-[#8C1D1D]"
+          }`}
+        >
           Contact
-        </span>
+        </Link>
       </nav>
 
       {/* Actions */}

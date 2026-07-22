@@ -1,0 +1,6 @@
+# Allow all search engines to crawl the website
+User-agent: *
+Allow: /
+
+# Link to the sitemap file
+Sitemap: http://localhost:3000/sitemap.xml

@@ -1,8 +1,8 @@
 import { Pizza } from "../../types";
-import CartePizza from "../menu/CartePizza";
+import { PIZZAS } from "../../data";
+import { CartePizza } from "../menu";
 import Banniere from "./Banniere";
 import Presentation from "./Presentation";
-import { PIZZAS } from "../../data/pizzas";
 
 interface PageAccueilProps {
   onChangerPage: (page: "menu" | "details") => void;

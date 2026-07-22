@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
+import "../assets/css/globals.css";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "Découvrez notre menu signature. Le savoir-faire artisanal italien livré chez vous.",
 };
 
+import { ClientShell } from "../components";
+
 export default function MiseEnPagePrincipale({
   children,
 }: Readonly<{
@@ -28,7 +30,9 @@ export default function MiseEnPagePrincipale({
       lang="fr"
       className={`${playfair.variable} ${plusJakarta.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ClientShell>{children}</ClientShell>
+      </body>
     </html>
   );
 }

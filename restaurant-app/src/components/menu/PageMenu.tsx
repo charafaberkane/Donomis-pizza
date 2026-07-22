@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { Pizza } from "../../types";
+import { PIZZAS } from "../../data";
 import CartePizza from "./CartePizza";
-import { PIZZAS } from "../../data/pizzas";
 
 interface PageMenuProps {
   onSelectionnerPizza: (pizza: Pizza) => void;

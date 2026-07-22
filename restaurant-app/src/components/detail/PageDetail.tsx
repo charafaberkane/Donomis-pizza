@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { Pizza, Variante } from "../../types";
+import { obtenirClasseBadge } from "../../utils";
 
 interface PageDetailProps {
   pizza: Pizza;
@@ -24,15 +27,7 @@ export default function PageDetail({
     ? varianteSelectionnee.prix
     : pizza.prixDeBase;
 
-  // Déterminer la couleur du badge
-  let classeBadge = "bg-stone-800 text-white";
-  if (pizza.typeBadge === "epicee") {
-    classeBadge = "bg-[#8C1D1D] text-white";
-  } else if (pizza.typeBadge === "classique") {
-    classeBadge = "bg-[#5F6935] text-white";
-  } else if (pizza.typeBadge === "vegetarienne") {
-    classeBadge = "bg-[#C2410C] text-white";
-  }
+  const classeBadge = obtenirClasseBadge(pizza.typeBadge);
 
   const gererAjouterAuPanier = () => {
     if (!varianteSelectionnee) return;

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Pizza } from "../../types";
+import { obtenirClasseBadge } from "../../utils";
 
 interface CartePizzaProps {
   pizza: Pizza;
@@ -7,15 +8,7 @@ interface CartePizzaProps {
 }
 
 export default function CartePizza({ pizza, onSelectionner }: CartePizzaProps) {
-  // Déterminer les couleurs du badge
-  let classeBadge = "bg-stone-800 text-white";
-  if (pizza.typeBadge === "epicee") {
-    classeBadge = "bg-[#8C1D1D] text-white";
-  } else if (pizza.typeBadge === "classique") {
-    classeBadge = "bg-[#5F6935] text-white";
-  } else if (pizza.typeBadge === "vegetarienne") {
-    classeBadge = "bg-[#C2410C] text-white";
-  }
+  const classeBadge = obtenirClasseBadge(pizza.typeBadge);
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden border border-[#E9E4C9]/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full group transform hover:-translate-y-1">
