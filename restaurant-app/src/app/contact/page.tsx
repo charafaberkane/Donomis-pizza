@@ -109,7 +109,7 @@ export default function ContactPage() {
                 <span className="text-xl">📍</span>
                 <div>
                   <strong className="text-stone-800 text-sm block">Adresse</strong>
-                  <span className="text-xs text-stone-500">12 Rue de la Pizza, 75001 Paris, France</span>
+                  <span className="text-xs text-stone-500">801 Aviation Road, Ottawa</span>
                 </div>
               </div>
               
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 <span className="text-xl">📞</span>
                 <div>
                   <strong className="text-stone-800 text-sm block">Téléphone</strong>
-                  <span className="text-xs text-stone-500">+33 1 23 45 67 89</span>
+                  <span className="text-xs text-stone-500">+1 613 123 123</span>
                 </div>
               </div>
 
