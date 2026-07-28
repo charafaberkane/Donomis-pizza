@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { NomPage } from "../../types";
+import InstallPrompt from "@/components/InstallPrompt";
+
 
 interface HeaderProps {
   pageActive: NomPage;
-  onChangerPage: (page: NomPage) => void;
   onOuvrirPanier: () => void;
   nombreArticles: number;
 }
@@ -14,9 +15,13 @@ export default function Header({
   nombreArticles,
 }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF7E3]/95 backdrop-blur-md border-b border-[#E9E4C9] py-4 px-6 md:px-12 flex items-center justify-between">
-      {/* Logo */}
-      <div className="flex items-center gap-2">
+    <>
+      <div className="sticky top-0 z-50 bg-[#FAF7E3]/95 border-b border-[#E9E4C9] py-2 px-6 md:px-12 text-center">
+        <InstallPrompt />
+      </div>
+      <header className="sticky top-[2.5rem] z-40 bg-[#FAF7E3]/95 backdrop-blur-md border-b border-[#E9E4C9] py-4 px-6 md:px-12 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center gap-2">
         <Link
           href="/"
           className="font-serif italic text-2xl md:text-3xl font-extrabold text-[#8C1D1D] tracking-tight cursor-pointer bg-transparent border-none no-underline"
@@ -115,5 +120,6 @@ export default function Header({
         </button>
       </div>
     </header>
+    </>
   );
 }

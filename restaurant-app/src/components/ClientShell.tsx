@@ -51,7 +51,6 @@ function ClientShellInner({ children }: { children: React.ReactNode }) {
       {/* En-tête */}
       <Header
         pageActive={pageActive}
-        onChangerPage={() => {}} // Legacy prop (Header will use standard Links)
         onOuvrirPanier={ouvrirPanier}
         nombreArticles={nombreTotalArticles}
       />

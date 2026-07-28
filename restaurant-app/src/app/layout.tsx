@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "../assets/css/globals.css";
+import { InstalledDateProvider } from "@/providers/InstalledDateProvider";
+
+
+
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -32,7 +36,9 @@ export default function MiseEnPagePrincipale({
       className={`${playfair.variable} ${plusJakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ClientShell>{children}</ClientShell>
+        <InstalledDateProvider>
+          <ClientShell>{children}</ClientShell>
+        </InstalledDateProvider>
       </body>
     </html>
   );
