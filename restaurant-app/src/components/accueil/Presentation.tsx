@@ -2,23 +2,23 @@ import Image from "next/image";
 
 export default function Presentation() {
   return (
-    <section className="py-16 px-6 md:px-12 max-w-7xl mx-auto border-t border-[#E9E4C9]">
+    <section className="py-16 px-6 md:px-12 max-w-7xl mx-auto" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Texte */}
         <div className="space-y-6">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-[#8C1D1D]">
+          <span className="text-xs font-extrabold uppercase tracking-widest" style={{ color: "var(--color-bordeaux)" }}>
             Tradition & Passion
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-black text-stone-900 leading-tight">
+          <h2 className="font-serif text-3xl md:text-5xl font-black leading-tight" style={{ color: "var(--premier-plan)" }}>
             Une pâte vivante, des ingrédients d&apos;exception
           </h2>
-          <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+          <p className="text-sm md:text-base leading-relaxed" style={{ color: "var(--muted)" }}>
             Chez Donomi Pizza, nous croyons que la pizza parfaite nécessite du
             temps et de la rigueur. C&apos;est pourquoi nous utilisons une farine de
             blé type 00 importée de Naples et que nous laissons reposer notre
             pâte pendant 3 jours entiers pour révéler tous ses arômes.
           </p>
-          <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+          <p className="text-sm md:text-base leading-relaxed" style={{ color: "var(--muted)" }}>
             De la sauce tomate à base de San Marzano AOP jusqu&apos;à la burrata
             ultra-crémeuse déposée après cuisson, chaque bouchée est un hommage
             au terroir italien.

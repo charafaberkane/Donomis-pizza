@@ -1,7 +1,6 @@
 "use client"; // Nécessaire : écoute d'événements navigateur + localStorage
  
 import { useEffect, useState } from "react";
-import { useInstalledDate } from "@/providers/InstalledDateProvider";
  
 // Type de l'événement beforeinstallprompt (non standard dans les libs DOM)
 interface BeforeInstallPromptEvent extends Event {
@@ -13,12 +12,7 @@ export default function InstallPrompt() {
     // L'événement capturé pour déclencher l'installation plus tard
     const [installPrompt, setInstallPrompt] =
         useState<BeforeInstallPromptEvent | null>(null);
-    // Date de dernière fermeture de la bannière (epoch en secondes)
-    const [installDate, setInstallDate] = useInstalledDate();
-    // Horodatage courant au montage (évite de recalculer Date.now() à chaque rendu)
-    const [currentDate, setCurrentDate] = useState(() =>
-        Math.floor(Date.now() / 1000)
-    );
+    // Note: Installation banner state only
  
     useEffect(() => {
         // Intercepte l'événement PWA avant que le navigateur n'affiche son propre prompt
@@ -35,11 +29,8 @@ export default function InstallPrompt() {
         };
     }, []);
  
-    // Fermeture manuelle : masque la bannière et mémorise la date (délai 24 h)
-    const handleClose = () => {
-        setInstallPrompt(null);
-        setInstallDate(currentDate);
-    };
+    // Fermeture manuelle : masque la bannière (fonctionality kept if needed later)
+    // const handleClose = () => setInstallPrompt(null);
  
     // Lance le dialogue d'installation du navigateur
     const handleInstall = async () => {
@@ -60,18 +51,19 @@ export default function InstallPrompt() {
             type="button"
             onClick={handleInstall}
             disabled={!installationDisponible}
-            className={`text-sm font-semibold transition ${
+            className={`text-sm font-semibold transition`}
+            style={
                 installationDisponible
-                    ? "text-[#8C1D1D] underline decoration-[#8C1D1D] underline-offset-2 hover:text-[#701616]"
-                    : "text-[#9CA3AF] cursor-not-allowed"
-            }`}
-            title={
-                installationDisponible
-                    ? "Cliquer pour installer l'application"
-                    : "Installation disponible sur les navigateurs compatibles"
+                    ? { color: "var(--color-bordeaux)", textDecoration: "underline", textDecorationColor: "var(--color-bordeaux)" }
+                    : { color: "#9CA3AF", cursor: "not-allowed" }
             }
+            title={
+                    installationDisponible
+                        ? "Cliquer pour installer l&apos;application"
+                        : "Installation disponible sur les navigateurs compatibles"
+                }
         >
-            Cliquer pour installer l'application
+                Cliquer pour installer l&apos;application
         </button>
     );
 }

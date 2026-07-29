@@ -33,17 +33,18 @@ export default function TiroirPanier({
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Fond assombri */}
       <div
-        className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity cursor-pointer"
+        className="absolute inset-0 backdrop-blur-sm transition-opacity cursor-pointer"
         onClick={onFermer}
+        style={{ backgroundColor: "rgba(11,18,32,0.6)" }}
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#FAF7E3] border-l border-[#E9E4C9] flex flex-col h-full shadow-2xl">
+        <div className="w-screen max-w-md flex flex-col h-full shadow-2xl" style={{ backgroundColor: "var(--arriere-plan)", borderLeft: "1px solid rgba(0,0,0,0.04)" }}>
           {/* En-tête du Panier */}
-          <div className="px-6 py-5 border-b border-[#E9E4C9] flex items-center justify-between bg-white">
+          <div className="px-6 py-5 flex items-center justify-between" style={{ borderBottom: "1px solid rgba(0,0,0,0.06)", backgroundColor: "var(--color-creme-clair)" }}>
             <div className="flex items-center gap-2">
               <svg
-                className="h-5 w-5 text-[#8C1D1D]"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -55,13 +56,14 @@ export default function TiroirPanier({
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                 />
               </svg>
-              <h3 className="font-serif text-lg font-black text-stone-900">
+              <h3 className="font-serif text-lg font-black" style={{ color: "var(--premier-plan)" }}>
                 Votre Panier ({nombreTotalArticles})
               </h3>
             </div>
             <button
               onClick={onFermer}
-              className="text-stone-400 hover:text-[#8C1D1D] transition-colors p-1.5 focus:outline-none cursor-pointer"
+              className="p-1.5 focus:outline-none cursor-pointer"
+              style={{ color: "var(--muted)" }}
             >
               <span className="text-xl">✕</span>
             </button>
@@ -73,9 +75,10 @@ export default function TiroirPanier({
               panier.map((article) => (
                 <div
                   key={`${article.pizzaId}-${article.taille}`}
-                  className="bg-white rounded-xl p-4 border border-[#E9E4C9]/40 flex gap-4 items-center justify-between"
+                  className="rounded-xl p-4 flex gap-4 items-center justify-between"
+                  style={{ backgroundColor: "var(--color-creme-clair)", border: "1px solid rgba(0,0,0,0.04)" }}
                 >
-                  <div className="relative h-16 w-16 rounded-lg overflow-hidden shrink-0 bg-stone-100">
+                  <div className="relative h-16 w-16 rounded-lg overflow-hidden shrink-0" style={{ backgroundColor: "var(--color-creme-clair)" }}>
                     <Image
                       src={article.image}
                       alt={`${article.nom} - ${article.taille}`}
@@ -85,13 +88,13 @@ export default function TiroirPanier({
                   </div>
 
                   <div className="flex-1">
-                    <h4 className="font-serif text-sm font-bold text-stone-900 leading-tight">
+                    <h4 className="font-serif text-sm font-bold leading-tight" style={{ color: "var(--premier-plan)" }}>
                       {article.nom}
                     </h4>
-                    <span className="text-[#8C1D1D] text-[11px] font-extrabold block mt-0.5">
+                    <span className="text-[11px] font-extrabold block mt-0.5" style={{ color: "var(--color-bordeaux)" }}>
                       {article.taille}
                     </span>
-                    <span className="text-stone-500 text-xs font-semibold block mt-1">
+                    <span className="text-xs font-semibold block mt-1" style={{ color: "var(--muted)" }}>
                       {article.prix.toFixed(2).replace(".", ",")} $
                     </span>
 
@@ -100,18 +103,20 @@ export default function TiroirPanier({
                         onClick={() =>
                           onModifierQuantite(article.pizzaId, article.taille, -1)
                         }
-                        className="bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded text-xs font-black transition-colors cursor-pointer"
+                        className="px-2 py-0.5 rounded text-xs font-black transition-colors cursor-pointer"
+                        style={{ backgroundColor: "var(--color-creme-clair)", color: "var(--premier-plan)", border: "1px solid rgba(0,0,0,0.04)" }}
                       >
                         −
                       </button>
-                      <span className="text-xs font-extrabold text-stone-700 w-4 text-center">
+                      <span className="text-xs font-extrabold w-4 text-center" style={{ color: "var(--premier-plan)" }}>
                         {article.quantite}
                       </span>
                       <button
                         onClick={() =>
                           onModifierQuantite(article.pizzaId, article.taille, 1)
                         }
-                        className="bg-stone-100 hover:bg-stone-200 text-stone-700 px-2 py-0.5 rounded text-xs font-black transition-colors cursor-pointer"
+                        className="px-2 py-0.5 rounded text-xs font-black transition-colors cursor-pointer"
+                        style={{ backgroundColor: "var(--color-creme-clair)", color: "var(--premier-plan)", border: "1px solid rgba(0,0,0,0.04)" }}
                       >
                         +
                       </button>
@@ -120,8 +125,9 @@ export default function TiroirPanier({
 
                   <button
                     onClick={() => onRetirer(article.pizzaId, article.taille)}
-                    className="text-stone-400 hover:text-[#8C1D1D] transition-colors p-1.5 cursor-pointer"
+                    className="p-1.5 cursor-pointer"
                     aria-label="Supprimer"
+                    style={{ color: "var(--muted)" }}
                   >
                     <svg
                       className="h-4 w-4"
@@ -142,12 +148,13 @@ export default function TiroirPanier({
             ) : (
               <div className="text-center py-20">
                 <span className="text-4xl block mb-4">🛒</span>
-                <p className="text-stone-500 text-xs font-semibold">
+                <p className="text-xs font-semibold" style={{ color: "var(--muted)" }}>
                   Votre panier est vide.
                 </p>
                 <button
                   onClick={onFermer}
-                  className="mt-6 bg-[#8C1D1D] text-[#FAF7E3] px-5 py-2.5 rounded-full text-xs font-bold hover:bg-[#701616] transition-colors cursor-pointer"
+                  className="mt-6 px-5 py-2.5 rounded-full text-xs font-bold transition-colors cursor-pointer"
+                  style={{ backgroundColor: "var(--color-bordeaux)", color: "var(--color-creme-fond)" }}
                 >
                   Continuer mes achats
                 </button>
@@ -157,25 +164,26 @@ export default function TiroirPanier({
 
           {/* Pied du Panier */}
           {panier.length > 0 && (
-            <div className="p-6 bg-white border-t border-[#E9E4C9] space-y-4">
-              <div className="flex justify-between items-center text-stone-700 text-sm font-semibold">
+            <div className="p-6 space-y-4" style={{ backgroundColor: "var(--color-creme-clair)", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+              <div className="flex justify-between items-center text-sm font-semibold" style={{ color: "var(--muted)" }}>
                 <span>Sous-total</span>
                 <span>{totalPanier.toFixed(2).replace(".", ",")} $</span>
               </div>
-              <div className="flex justify-between items-center text-stone-500 text-xs">
+              <div className="flex justify-between items-center text-xs" style={{ color: "var(--muted)" }}>
                 <span>Frais de livraison</span>
-                <span className="text-[#5F6935] font-bold">Gratuit</span>
+                <span className="font-bold" style={{ color: "#5F6935" }}>Gratuit</span>
               </div>
-              <div className="flex justify-between items-center text-stone-900 font-extrabold text-base pt-2 border-t border-stone-100">
+              <div className="flex justify-between items-center font-extrabold text-base pt-2" style={{ color: "var(--premier-plan)", borderTop: "1px solid rgba(0,0,0,0.04)" }}>
                 <span>Total</span>
-                <span className="text-[#8C1D1D] text-lg">
+                <span className="text-lg" style={{ color: "var(--color-bordeaux)" }}>
                   {totalPanier.toFixed(2).replace(".", ",")} $
                 </span>
               </div>
 
               <button
                 onClick={onValiderCommande}
-                className="w-full bg-[#8C1D1D] hover:bg-[#701616] text-white py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shadow-md text-center mt-2"
+                className="w-full py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shadow-md text-center mt-2"
+                style={{ backgroundColor: "var(--color-bordeaux)", color: "var(--color-creme-fond)" }}
               >
                 Passer la commande
               </button>

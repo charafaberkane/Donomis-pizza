@@ -18,10 +18,48 @@
 :root {
   --arriere-plan: #FAF7E3;
   --premier-plan: #1C1917;
+  --muted: #6b6b6b;
+}
+
+/* Dark theme variables applied when .dark is present on <html> */
+.dark {
+  --arriere-plan: #0b1220; /* deep slate */
+  --premier-plan: #e6e6e9; /* light text */
+  --color-bordeaux: #eab0a0; /* softer accent on dark */
+  --color-bordeaux-survol: #d68b7a;
+  --color-creme-fond: #071024;
+  --color-creme-clair: #0b1a2a;
+  --color-texte-terreux: #d6d0cc;
+  --color-accent-or: #ffb36b;
+  --muted: #9aa0a6;
 }
 
 body {
   background-color: var(--arriere-plan);
   color: var(--premier-plan);
   font-family: var(--font-sans);
+}
+
+/* Utility for selection color using CSS variables */
+::selection {
+  background: var(--color-bordeaux);
+  color: var(--color-creme-fond);
+}
+
+/* Badge semantic classes to centralize colors and support dark theme */
+.badge-epicee {
+  background-color: var(--color-bordeaux);
+  color: var(--color-creme-fond);
+}
+.badge-classique {
+  background-color: #5F6935;
+  color: #ffffff;
+}
+.badge-vegetarienne {
+  background-color: var(--color-accent-or);
+  color: #ffffff;
+}
+.badge-speciale {
+  background-color: #1f2937; /* stone-800 */
+  color: #ffffff;
 }

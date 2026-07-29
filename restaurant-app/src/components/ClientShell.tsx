@@ -34,14 +34,28 @@ function ClientShellInner({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF7E3] text-[#1C1917] font-sans selection:bg-[#8C1D1D] selection:text-white flex flex-col justify-between">
+    <div
+      className="min-h-screen font-sans flex flex-col justify-between"
+      style={{
+        backgroundColor: "var(--arriere-plan)",
+        color: "var(--premier-plan)",
+      }}
+    >
       {/* Alerte Toast */}
       {messageAlerte && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#8C1D1D] text-[#FAF7E3] px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border border-[#FAF7E3]/20 animate-bounce duration-300">
+        <div
+          className="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border animate-bounce duration-300"
+          style={{
+            backgroundColor: "var(--color-bordeaux)",
+            color: "var(--color-creme-fond)",
+            borderColor: "rgba(255,255,255,0.08)",
+          }}
+        >
           <span className="font-semibold text-sm">{messageAlerte}</span>
           <button
             onClick={() => setMessageAlerte(null)}
             className="text-white/60 hover:text-white transition-colors cursor-pointer"
+            aria-label="Fermer l'alerte"
           >
             ✕
           </button>

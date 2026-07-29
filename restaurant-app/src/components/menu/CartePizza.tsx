@@ -11,9 +11,9 @@ export default function CartePizza({ pizza, onSelectionner }: CartePizzaProps) {
   const classeBadge = obtenirClasseBadge(pizza.typeBadge);
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden border border-[#E9E4C9]/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full group transform hover:-translate-y-1">
+    <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full group transform hover:-translate-y-1" style={{ backgroundColor: "var(--color-creme-clair)", border: "1px solid rgba(0,0,0,0.04)" }}>
       {/* Zone Image */}
-      <div className="relative h-64 sm:h-52 w-full overflow-hidden bg-stone-100">
+      <div className="relative h-64 sm:h-52 w-full overflow-hidden" style={{ backgroundColor: "var(--color-creme-clair)" }}>
         <Image
           src={pizza.imageParDefaut}
           alt={pizza.nom}
@@ -33,26 +33,27 @@ export default function CartePizza({ pizza, onSelectionner }: CartePizzaProps) {
       <div className="p-5 flex flex-col flex-1 justify-between">
         <div>
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-[#8C1D1D] transition-colors">
+            <h3 className="font-serif text-lg font-bold group-hover:transition-colors" style={{ color: "var(--premier-plan)" }}>
               {pizza.nom}
             </h3>
-            <div className="flex items-center gap-1 text-sm font-bold text-stone-700 shrink-0">
+            <div className="flex items-center gap-1 text-sm font-bold shrink-0" style={{ color: "var(--muted)" }}>
               <span className="text-amber-500">★</span>
               <span>{pizza.note.toFixed(1)}</span>
             </div>
           </div>
-          <p className="text-stone-500 text-xs md:text-sm mt-2.5 leading-relaxed font-medium line-clamp-3">
+          <p className="text-xs md:text-sm mt-2.5 leading-relaxed font-medium line-clamp-3" style={{ color: "var(--muted)" }}>
             {pizza.description}
           </p>
         </div>
 
         <div className="flex items-center justify-between mt-5 pt-3 border-t border-stone-100">
-          <span className="text-[#8C1D1D] font-extrabold text-sm md:text-base">
+          <span className="font-extrabold text-sm md:text-base" style={{ color: "var(--color-bordeaux)" }}>
             À partir de {pizza.prixDeBase.toFixed(2).replace(".", ",")} $
           </span>
           <button
             onClick={() => onSelectionner(pizza)}
-            className="bg-[#8C1D1D] hover:bg-[#701616] text-white px-3.5 py-1.5 rounded-lg text-xs font-bold tracking-wide flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+            className="px-3.5 py-1.5 rounded-lg text-xs font-bold tracking-wide flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+            style={{ backgroundColor: "var(--color-bordeaux)", color: "var(--color-creme-fond)" }}
           >
             <svg
               className="h-3.5 w-3.5"

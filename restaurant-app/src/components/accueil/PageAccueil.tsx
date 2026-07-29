@@ -24,10 +24,10 @@ export default function PageAccueil({
       {/* Section Vedettes */}
       <section className="py-12 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-[#8C1D1D]">
+          <span className="text-xs font-extrabold uppercase tracking-widest" style={{ color: "var(--color-bordeaux)" }}>
             À l&apos;honneur
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-black text-stone-900 mt-2">
+          <h2 className="font-serif text-3xl md:text-5xl font-black mt-2" style={{ color: "var(--premier-plan)" }}>
             Nos Créations en Vedette
           </h2>
         </div>

@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 import { ClientShell } from "../components";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function MiseEnPagePrincipale({
   children,
@@ -37,7 +38,9 @@ export default function MiseEnPagePrincipale({
     >
       <body className="min-h-full flex flex-col">
         <InstalledDateProvider>
-          <ClientShell>{children}</ClientShell>
+          <ThemeProvider>
+            <ClientShell>{children}</ClientShell>
+          </ThemeProvider>
         </InstalledDateProvider>
       </body>
     </html>

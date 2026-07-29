@@ -35,10 +35,10 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
       {/* Titre */}
       <section className="py-12 md:py-16 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="max-w-3xl">
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-black text-[#8C1D1D] mb-6 leading-tight">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight" style={{ color: "var(--color-bordeaux)" }}>
             Notre Carte Signature
           </h2>
-          <p className="text-stone-600 text-sm md:text-base lg:text-lg leading-relaxed font-medium">
+          <p className="text-sm md:text-base lg:text-lg leading-relaxed font-medium" style={{ color: "var(--muted)" }}>
             Découvrez la rencontre de l&apos;héritage artisanal italien et de la
             gastronomie moderne. Sélectionnez une pizza pour personnaliser sa
             taille et son prix.
@@ -48,7 +48,7 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
 
       {/* Filtres et Recherche */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E9E4C9] pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6" style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
           {/* Onglets de catégories */}
           <div className="flex flex-wrap gap-2.5">
             {["Tout", "Classiques", "Épicées", "Végétariennes", "Spéciales"].map(
@@ -58,11 +58,12 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
                   <button
                     key={cat}
                     onClick={() => setCategorieActive(cat)}
-                    className={`px-5 py-2 text-xs md:text-sm font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer ${
+                    className={`px-5 py-2 text-xs md:text-sm font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer`}
+                    style={
                       estSelectionne
-                        ? "bg-[#8C1D1D] text-[#FAF7E3] shadow-md transform -translate-y-[1px]"
-                        : "bg-[#FAF7E3] hover:bg-white text-stone-600 border border-[#E9E4C9]"
-                    }`}
+                        ? { backgroundColor: "var(--color-bordeaux)", color: "var(--color-creme-fond)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transform: "translateY(-1px)" }
+                        : { backgroundColor: "var(--color-creme-clair)", color: "var(--muted)", border: "1px solid rgba(0,0,0,0.04)" }
+                    }
                   >
                     {cat}
                   </button>
@@ -78,7 +79,8 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
               placeholder="Rechercher votre pizza..."
               value={recherche}
               onChange={(e) => setRecherche(e.target.value)}
-              className="bg-[#FAF7E3] hover:bg-white focus:bg-white border border-[#E9E4C9] rounded-lg px-4 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-[#8C1D1D] w-full pr-10 transition-colors text-stone-800"
+              className="rounded-lg px-4 py-2.5 text-xs w-full pr-10 transition-colors focus:outline-none"
+              style={{ backgroundColor: "var(--color-creme-clair)", border: "1px solid rgba(0,0,0,0.04)", color: "var(--premier-plan)" }}
             />
             <div className="absolute right-3.5 top-3 text-stone-400">
               <svg
@@ -112,12 +114,12 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white/50 border border-[#E9E4C9] rounded-2xl p-8 max-w-md mx-auto">
+          <div className="text-center py-16 rounded-2xl p-8 max-w-md mx-auto" style={{ backgroundColor: "rgba(255,255,255,0.5)", border: "1px solid rgba(0,0,0,0.04)" }}>
             <span className="text-4xl">🍕</span>
-            <h4 className="font-serif text-lg font-bold text-stone-800 mt-4 mb-2">
+            <h4 className="font-serif text-lg font-bold mt-4 mb-2" style={{ color: "var(--premier-plan)" }}>
               Aucune pizza trouvée
             </h4>
-            <p className="text-stone-500 text-xs">
+            <p className="text-xs" style={{ color: "var(--muted)" }}>
               Nous n&apos;avons pas trouvé de pizza correspondant à votre
               recherche. Essayez avec d&apos;autres mots clés.
             </p>
@@ -126,7 +128,8 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
                 setRecherche("");
                 setCategorieActive("Tout");
               }}
-              className="mt-5 bg-[#8C1D1D] text-[#FAF7E3] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#701616] transition-colors cursor-pointer"
+              className="mt-5 px-4 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+              style={{ backgroundColor: "var(--color-bordeaux)", color: "var(--color-creme-fond)" }}
             >
               Réinitialiser les filtres
             </button>

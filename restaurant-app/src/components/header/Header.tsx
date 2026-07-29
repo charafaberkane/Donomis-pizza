@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { NomPage } from "../../types";
 import InstallPrompt from "@/components/InstallPrompt";
+import ThemeToggle from "./ThemeToggle";
 
 
 interface HeaderProps {
@@ -16,15 +19,28 @@ export default function Header({
 }: HeaderProps) {
   return (
     <>
-      <div className="sticky top-0 z-50 bg-[#FAF7E3]/95 border-b border-[#E9E4C9] py-2 px-6 md:px-12 text-center">
+      <div
+        className="sticky top-0 z-50 py-2 px-6 md:px-12 text-center"
+        style={{
+          backgroundColor: "var(--arriere-plan)",
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+        }}
+      >
         <InstallPrompt />
       </div>
-      <header className="sticky top-[2.5rem] z-40 bg-[#FAF7E3]/95 backdrop-blur-md border-b border-[#E9E4C9] py-4 px-6 md:px-12 flex items-center justify-between">
+      <header
+        className="sticky top-[2.5rem] z-40 backdrop-blur-md py-4 px-6 md:px-12 flex items-center justify-between"
+        style={{
+          backgroundColor: "var(--arriere-plan)",
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+        }}
+      >
         {/* Logo */}
         <div className="flex items-center gap-2">
         <Link
           href="/"
-          className="font-serif italic text-2xl md:text-3xl font-extrabold text-[#8C1D1D] tracking-tight cursor-pointer bg-transparent border-none no-underline"
+          className="font-serif italic text-2xl md:text-3xl font-extrabold tracking-tight cursor-pointer bg-transparent border-none no-underline"
+          style={{ color: "var(--color-bordeaux)" }}
         >
           Donomi Pizza
         </Link>
@@ -36,8 +52,8 @@ export default function Header({
           href="/"
           className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "accueil"
-              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
-              : "text-stone-600 hover:text-[#8C1D1D]"
+              ? "text-[var(--color-bordeaux)] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[var(--color-bordeaux)]"
+              : "text-[var(--muted)] hover:text-[var(--color-bordeaux)]"
           }`}
         >
           Accueil
@@ -46,8 +62,8 @@ export default function Header({
           href="/menu"
           className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "menu" || pageActive === "details"
-              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
-              : "text-stone-600 hover:text-[#8C1D1D]"
+              ? "text-[var(--color-bordeaux)] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[var(--color-bordeaux)]"
+              : "text-[var(--muted)] hover:text-[var(--color-bordeaux)]"
           }`}
         >
           Menu
@@ -56,8 +72,8 @@ export default function Header({
           href="/a-propos"
           className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "apropos"
-              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
-              : "text-stone-600 hover:text-[#8C1D1D]"
+              ? "text-[var(--color-bordeaux)] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[var(--color-bordeaux)]"
+              : "text-[var(--muted)] hover:text-[var(--color-bordeaux)]"
           }`}
         >
           À propos
@@ -66,8 +82,8 @@ export default function Header({
           href="/contact"
           className={`text-sm font-semibold tracking-wide transition-colors no-underline ${
             pageActive === "contact"
-              ? "text-[#8C1D1D] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[#8C1D1D]"
-              : "text-stone-600 hover:text-[#8C1D1D]"
+              ? "text-[var(--color-bordeaux)] relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-[var(--color-bordeaux)]"
+              : "text-[var(--muted)] hover:text-[var(--color-bordeaux)]"
           }`}
         >
           Contact
@@ -79,7 +95,8 @@ export default function Header({
         {/* Bouton Panier */}
         <button
           onClick={onOuvrirPanier}
-          className="relative p-2 text-stone-700 hover:text-[#8C1D1D] transition-colors focus:outline-none cursor-pointer"
+          className="relative p-2 transition-colors focus:outline-none cursor-pointer"
+          style={{ color: "var(--premier-plan)" }}
           aria-label="Panier"
         >
           <svg
@@ -96,14 +113,14 @@ export default function Header({
             />
           </svg>
           {nombreArticles > 0 && (
-            <span className="absolute top-0.5 right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-[#8C1D1D] rounded-full animate-pulse">
+            <span className="absolute top-0.5 right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-bordeaux)" }}>
               {nombreArticles}
             </span>
           )}
         </button>
 
         {/* Bouton Profil */}
-        <button className="p-1.5 rounded-full text-stone-700 hover:text-[#8C1D1D] transition-colors focus:outline-none">
+        <button className="p-1.5 rounded-full transition-colors focus:outline-none" style={{ color: "var(--premier-plan)" }}>
           <svg
             className="h-6 w-6"
             fill="none"
@@ -118,6 +135,7 @@ export default function Header({
             />
           </svg>
         </button>
+        <ThemeToggle />
       </div>
     </header>
     </>
