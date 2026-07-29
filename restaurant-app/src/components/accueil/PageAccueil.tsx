@@ -32,11 +32,12 @@ export default function PageAccueil({
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pizzasVedettes.map((pizza) => (
+          {pizzasVedettes.map((pizza, index) => (
             <CartePizza
               key={pizza.id}
               pizza={pizza}
               onSelectionner={onSelectionnerPizza}
+              priority={index < 2}
             />
           ))}
         </div>

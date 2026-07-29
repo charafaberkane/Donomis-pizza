@@ -29,7 +29,7 @@ export default function Presentation() {
         <div className="grid grid-cols-2 gap-4">
           <div className="relative h-60 w-full rounded-2xl overflow-hidden shadow-md">
             <Image
-              src="/images/margherita.png"
+              src="/images/margherita.webp"
               alt="Préparation de la Margherita"
               fill
               className="object-cover hover:scale-105 transition-transform duration-500"
@@ -37,7 +37,7 @@ export default function Presentation() {
           </div>
           <div className="relative h-60 w-full rounded-2xl overflow-hidden shadow-md translate-y-6">
             <Image
-              src="/images/la_diavola.png"
+              src="/images/la_diavola.webp"
               alt="Pizza Diavola sortie du four"
               fill
               className="object-cover hover:scale-105 transition-transform duration-500"

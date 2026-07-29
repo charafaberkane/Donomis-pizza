@@ -5,9 +5,10 @@ import { obtenirClasseBadge } from "../../utils";
 interface CartePizzaProps {
   pizza: Pizza;
   onSelectionner: (pizza: Pizza) => void;
+  priority?: boolean;
 }
 
-export default function CartePizza({ pizza, onSelectionner }: CartePizzaProps) {
+export default function CartePizza({ pizza, onSelectionner, priority = false }: CartePizzaProps) {
   const classeBadge = obtenirClasseBadge(pizza.typeBadge);
 
   return (
@@ -18,7 +19,7 @@ export default function CartePizza({ pizza, onSelectionner }: CartePizzaProps) {
           src={pizza.imageParDefaut}
           alt={pizza.nom}
           fill
-          priority
+          priority={priority}
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />

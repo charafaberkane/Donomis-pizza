@@ -105,11 +105,12 @@ export default function PageMenu({ onSelectionnerPizza }: PageMenuProps) {
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-20">
         {pizzasFiltrees.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pizzasFiltrees.map((pizza) => (
+            {pizzasFiltrees.map((pizza, index) => (
               <CartePizza
                 key={pizza.id}
                 pizza={pizza}
                 onSelectionner={onSelectionnerPizza}
+                priority={index < 4}
               />
             ))}
           </div>

@@ -10,12 +10,12 @@ export const PIZZAS: Pizza[] = [
     description:
       "Salami épicé, olives noires, flocons de piment, tomates San Marzano et mozzarella de bufflonne.",
     prixDeBase: 18.0,
-    imageParDefaut: "/images/la_diavola.png",
+    imageParDefaut: "/images/la_diavola.webp",
     estVedette: true,
     variantes: [
-      { taille: "Petite (25cm)", prix: 18.0, image: "/images/la_diavola.png" },
-      { taille: "Moyenne (33cm)", prix: 24.0, image: "/images/la_diavola.png" },
-      { taille: "Grande (40cm)", prix: 29.0, image: "/images/la_diavola.png" },
+      { taille: "Petite (25cm)", prix: 18.0, image: "/images/la_diavola.webp" },
+      { taille: "Moyenne (33cm)", prix: 24.0, image: "/images/la_diavola.webp" },
+      { taille: "Grande (40cm)", prix: 29.0, image: "/images/la_diavola.webp" },
     ],
   },
   {
@@ -27,12 +27,12 @@ export const PIZZAS: Pizza[] = [
     description:
       "Mozzarella de bufflonne fraîche, basilic frais, huile d'olive extra vierge et sel de mer.",
     prixDeBase: 14.0,
-    imageParDefaut: "/images/margherita.png",
+    imageParDefaut: "/images/margherita.webp",
     estVedette: true,
     variantes: [
-      { taille: "Petite (25cm)", prix: 14.0, image: "/images/margherita.png" },
-      { taille: "Moyenne (33cm)", prix: 19.0, image: "/images/margherita.png" },
-      { taille: "Grande (40cm)", prix: 23.0, image: "/images/margherita.png" },
+      { taille: "Petite (25cm)", prix: 14.0, image: "/images/margherita.webp" },
+      { taille: "Moyenne (33cm)", prix: 19.0, image: "/images/margherita.webp" },
+      { taille: "Grande (40cm)", prix: 23.0, image: "/images/margherita.webp" },
     ],
   },
   {
@@ -44,11 +44,11 @@ export const PIZZAS: Pizza[] = [
     description:
       "Courgettes grillées, aubergines, poivrons marinés, fromage de chèvre crémeux et réduction balsamique.",
     prixDeBase: 16.0,
-    imageParDefaut: "/images/ortolana.png",
+    imageParDefaut: "/images/ortolana.webp",
     variantes: [
-      { taille: "Petite (25cm)", prix: 16.0, image: "/images/ortolana.png" },
-      { taille: "Moyenne (33cm)", prix: 22.0, image: "/images/ortolana.png" },
-      { taille: "Grande (40cm)", prix: 26.0, image: "/images/ortolana.png" },
+      { taille: "Petite (25cm)", prix: 16.0, image: "/images/ortolana.webp" },
+      { taille: "Moyenne (33cm)", prix: 22.0, image: "/images/ortolana.webp" },
+      { taille: "Grande (40cm)", prix: 26.0, image: "/images/ortolana.webp" },
     ],
   },
   {
@@ -60,23 +60,23 @@ export const PIZZAS: Pizza[] = [
     description:
       "Copeaux de truffe noire fraîche, champignons porcini sautés, fromage fontina fondu et thym frais.",
     prixDeBase: 24.0,
-    imageParDefaut: "/images/tartufo_nero.png",
+    imageParDefaut: "/images/tartufo_nero.webp",
     estVedette: true,
     variantes: [
       {
         taille: "Petite (25cm)",
         prix: 24.0,
-        image: "/images/tartufo_nero.png",
+        image: "/images/tartufo_nero.webp",
       },
       {
         taille: "Moyenne (33cm)",
         prix: 32.0,
-        image: "/images/tartufo_nero.png",
+        image: "/images/tartufo_nero.webp",
       },
       {
         taille: "Grande (40cm)",
         prix: 38.0,
-        image: "/images/tartufo_nero.png",
+        image: "/images/tartufo_nero.webp",
       },
     ],
   },
@@ -89,11 +89,11 @@ export const PIZZAS: Pizza[] = [
     description:
       "Nduja de Calabre piquante, oignons rouges caramélisés, filet de miel piquant et burrata fraîche.",
     prixDeBase: 19.5,
-    imageParDefaut: "/images/calabrese.png",
+    imageParDefaut: "/images/calabrese.webp",
     variantes: [
-      { taille: "Petite (25cm)", prix: 19.5, image: "/images/calabrese.png" },
-      { taille: "Moyenne (33cm)", prix: 26.0, image: "/images/calabrese.png" },
-      { taille: "Grande (40cm)", prix: 31.0, image: "/images/calabrese.png" },
+      { taille: "Petite (25cm)", prix: 19.5, image: "/images/calabrese.webp" },
+      { taille: "Moyenne (33cm)", prix: 26.0, image: "/images/calabrese.webp" },
+      { taille: "Grande (40cm)", prix: 31.0, image: "/images/calabrese.webp" },
     ],
   },
   {
@@ -105,22 +105,22 @@ export const PIZZAS: Pizza[] = [
     description:
       "Cœurs d'artichauts, jambon blanc cuit aux herbes, champignons de Paris frais et olives taggiasche.",
     prixDeBase: 17.0,
-    imageParDefaut: "/images/capricciosa.png",
+    imageParDefaut: "/images/capricciosa.webp",
     variantes: [
       {
         taille: "Petite (25cm)",
         prix: 17.0,
-        image: "/images/capricciosa.png",
+        image: "/images/capricciosa.webp",
       },
       {
         taille: "Moyenne (33cm)",
         prix: 23.0,
-        image: "/images/capricciosa.png",
+        image: "/images/capricciosa.webp",
       },
       {
         taille: "Grande (40cm)",
         prix: 27.5,
-        image: "/images/capricciosa.png",
+        image: "/images/capricciosa.webp",
       },
     ],
   },
@@ -133,11 +133,11 @@ export const PIZZAS: Pizza[] = [
     description:
       "Mélange onctueux et fondant de Gorgonzola AOP, Parmigiano Reggiano, Fontina et fior di latte.",
     prixDeBase: 15.0,
-    imageParDefaut: "/images/margherita.png",
+    imageParDefaut: "/images/margherita.webp",
     variantes: [
-      { taille: "Petite (25cm)", prix: 15.0, image: "/images/margherita.png" },
-      { taille: "Moyenne (33cm)", prix: 21.0, image: "/images/margherita.png" },
-      { taille: "Grande (40cm)", prix: 25.0, image: "/images/margherita.png" },
+      { taille: "Petite (25cm)", prix: 15.0, image: "/images/margherita.webp" },
+      { taille: "Moyenne (33cm)", prix: 21.0, image: "/images/margherita.webp" },
+      { taille: "Grande (40cm)", prix: 25.0, image: "/images/margherita.webp" },
     ],
   },
   {
@@ -149,22 +149,22 @@ export const PIZZAS: Pizza[] = [
     description:
       "Saumon fumé de qualité supérieure, crème fraîche à l'aneth, câpres de Sicile et perles d'oignon rouge.",
     prixDeBase: 21.0,
-    imageParDefaut: "/images/la_diavola.png",
+    imageParDefaut: "/images/la_diavola.webp",
     variantes: [
       {
         taille: "Petite (25cm)",
         prix: 21.0,
-        image: "/images/la_diavola.png",
+        image: "/images/la_diavola.webp",
       },
       {
         taille: "Moyenne (33cm)",
         prix: 29.0,
-        image: "/images/la_diavola.png",
+        image: "/images/la_diavola.webp",
       },
       {
         taille: "Grande (40cm)",
         prix: 34.0,
-        image: "/images/la_diavola.png",
+        image: "/images/la_diavola.webp",
       },
     ],
   },
