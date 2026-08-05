@@ -129,7 +129,9 @@ export default function ContactPage() {
                 <span className="text-xl" style={{ color: "var(--color-bordeaux)" }}>✉</span>
                 <div>
                   <strong className="text-sm block" style={{ color: "var(--premier-plan)" }}>Email</strong>
-                  <span className="text-xs" style={{ color: "var(--muted)" }}>contact@donomipizza.com</span>
+                  <span className="text-xs" style={{ color: "var(--muted)" }}>
+                    {process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@donomipizza.com"}
+                  </span>
                 </div>
               </div>
             </div>

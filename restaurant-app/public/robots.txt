@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Link to the sitemap file
-Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://donomispizza.vercel.app/sitemap.xml
