@@ -21,6 +21,23 @@ export const metadata: Metadata = {
   title: "Donomi Pizza - Notre Carte Signature",
   description: "Découvrez notre menu signature. Le savoir-faire artisanal italien livré chez vous.",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "Donomi Pizza - Notre Carte Signature",
+    description: "Découvrez notre menu signature. Le savoir-faire artisanal italien livré chez vous.",
+    url: "https://donomispizza.vercel.app/",
+    siteName: "Donomi Pizza",
+    images: [
+      {
+        url: "/images/capricciosa.webp",
+        width: 1200,
+        height: 630,
+        alt: "Donomi Pizza - Notre Carte Signature",
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+  },
+  
 };
 
 import { ClientShell } from "../components";
